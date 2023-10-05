@@ -1,29 +1,52 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 
 function Heading() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: '100%',
-      }}
-    >
-      <h1>Hello, React!</h1>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '50%',
-        }}
-      >
-        <Link to="/"> home</Link>
-        <Link to="/upload"> upload</Link>
-        <Link to="/list"> list</Link>
-      </div>
-    </div>
+    <Navbar bg="dark" expand="lg" variant="dark">
+      <Container>
+        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Link
+              to="/"
+              style={{
+                color: 'white',
+                textDecoration: 'none',
+                marginRight: '10px',
+              }}
+            >
+              {' '}
+              home
+            </Link>
+            <Link
+              to="/upload"
+              style={{
+                color: 'white',
+                textDecoration: 'none',
+                marginRight: '10px',
+              }}
+            >
+              {' '}
+              upload
+            </Link>
+            <Link
+              to="/"
+              style={{
+                color: 'white',
+                textDecoration: 'none',
+                marginRight: '10px',
+              }}
+            >
+              {' '}
+              list
+            </Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 

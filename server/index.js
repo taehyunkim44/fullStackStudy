@@ -12,10 +12,13 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const { Post } = require('./Model/Post.js');
+const { Counter } = require('./Model/Counter.js');
+
 app.listen(port, () => {
   mongoose
     .connect(
-      `mongodb+srv://eiiyy1112:${mongoDBPw}@cluster0.tr99tyl.mongodb.net/?retryWrites=true&w=majority`
+      `mongodb+srv://eiiyy1112:${mongoDBPw}@cluster0.tr99tyl.mongodb.net/Community?retryWrites=true&w=majority`
     )
     .then(() => {
       console.log(`Example app listening on port ${port}`);
@@ -34,7 +37,38 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 
-app.post('/api/test', (req, res) => {
-  console.log(req.body);
-  res.status(200).json({ success: true, text: '안녕하세요' });
+app.post('/api/post/submit', (req, res) => {
+  let temp = req.body;
+  Counter.findOne({ name: 'counter' })
+    .exec()
+    .then((counter) => {
+      temp.postNum = counter.postNum;
+      const CommunityPost = new Post(temp);
+      CommunityPost.save().then(() => {
+        Counter.updateOne({ name: 'counter' }, { $inc: { postNum: 1 } }).then(
+          () => {
+            res.status(200).json({ success: true });
+          }
+        );
+      });
+    })
+    .catch((err) => {
+      res.status(400).json({ success: false });
+    });
 });
+
+app.post('/api/post/list', (req, res) => {
+  Post.find()
+    .exec()
+    .then((doc) => {
+      res.status(200).json({ success: true, postList: doc });
+    })
+    .catch((err) => {
+      res.status(400).json({ success: false });
+    });
+});
+
+/*
+1. Post MongoDB Model
+2. Client css (Bootstrap, Emotion)
+*/
