@@ -18,7 +18,6 @@ function Heading() {
                 marginRight: '10px',
               }}
             >
-              {' '}
               home
             </Link>
             <Link
@@ -29,19 +28,17 @@ function Heading() {
                 marginRight: '10px',
               }}
             >
-              {' '}
               upload
             </Link>
             <Link
-              to="/"
+              to="/login"
               style={{
                 color: 'white',
                 textDecoration: 'none',
                 marginRight: '10px',
               }}
             >
-              {' '}
-              list
+              login
             </Link>
           </Nav>
         </Navbar.Collapse>

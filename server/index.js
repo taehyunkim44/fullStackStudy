@@ -9,9 +9,9 @@ require('dotenv').config();
 const mongoDBPw = process.env.MongoDB_PassWord;
 
 app.use(express.static(path.join(__dirname, '../client/build')));
+app.use('/image', express.static('./image'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use('/api/post', require('./Router/post.js'));
 
 /*

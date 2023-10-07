@@ -1,8 +1,10 @@
 var express = require('express');
 var router = express.Router();
-
+const multer = require('multer');
 const { Post } = require('../Model/Post.js');
 const { Counter } = require('../Model/Counter.js');
+
+const setUpload = require('../util/upload.js');
 
 router.post('/submit', (req, res) => {
   let temp = req.body;
@@ -72,5 +74,37 @@ router.post('/delete', (req, res) => {
       res.status(400).json({ success: false });
     });
 });
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'image/');
+  },
+  filename: function (req, file, cb) {
+    file.originalname = Buffer.from(file.originalname, 'latin1').toString(
+      'utf8'
+    );
+    cb(null, Date.now() + '-' + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage }).single('file');
+
+router.post('/image/upload', (req, res) => {
+  upload(req, res, (err) => {
+    if (err) {
+      res.status(400).json({ success: false });
+    } else {
+      res.status(200).json({ success: true, filePath: res.req.file.path });
+    }
+  });
+});
+
+// router.post(
+//   '/image/upload',
+//   setUpload('react-community/post'),
+//   (req, res, next) => {
+//     res.status(200).json({ success: true, filePath: res.req.file.location });
+//   }
+// );
 
 module.exports = router;
