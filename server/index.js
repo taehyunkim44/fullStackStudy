@@ -15,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/post', require('./Router/post.js'));
 app.use('/api/user', require('./Router/user.js'));
+app.use('/api/reple', require('./Router/reple.js'));
 
 /*
 /Hello
@@ -23,6 +24,7 @@ app.use('/api/user', require('./Router/user.js'));
 /Hello/React
  */
 
+mongoose.set('strictQuery', false);
 app.listen(port, () => {
   mongoose
     .connect(

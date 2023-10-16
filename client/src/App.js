@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginUser, clearUser } from './Reducer/userSlice.js';
 import firebase from './firebase.js';
 
 import Heading from './Component/Heading';
 import List from './Component/Post/List';
 import Upload from './Component/Post/Upload';
-import Detail from './Component/Post/Detail';
+import PostArea from './Component/Post/PostArea.js';
 import Edit from './Component/Post/Edit';
 
 import Login from './Component/User/Login';
@@ -36,7 +36,7 @@ function App() {
       <Routes>
         <Route path="/" element={<List />} />
         <Route path="/upload" element={<Upload />} />
-        <Route path="/post/:postNum" element={<Detail />} />
+        <Route path="/post/:postNum" element={<PostArea />} />
         <Route path="/edit/:postNum" element={<Edit />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

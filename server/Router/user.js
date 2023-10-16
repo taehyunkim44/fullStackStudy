@@ -16,7 +16,6 @@ router.post('/register', (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       res.status(400).json({ success: false });
     });
 });
@@ -32,7 +31,6 @@ router.post('/namecheck', (req, res) => {
       res.status(200).json({ success: true, check });
     })
     .catch((err) => {
-      console.log(err);
       res.status(400).json({ success: false });
     });
 });
