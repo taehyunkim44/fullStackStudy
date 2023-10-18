@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams, useNavigate } from 'react-router-dom';
-// import Avatar from 'react-avatar';
+import Avatar from 'react-avatar';
 import axios from 'axios';
 
 // import moment from 'moment';
@@ -47,12 +47,12 @@ function Detail(props) {
       <Post>
         <h1>{props.PostInfo.title}</h1>
         <div className="author">
-          {/* <Avatar
+          <Avatar
             size="40"
             round={true}
             src={props.PostInfo.author.photoURL}
             style={{ border: '1px solid #c6c6c6' }}
-          /> */}
+          />
           <p>{props.PostInfo.author.displayName}</p>
           {/* <p className="time">
             {SetTime(props.PostInfo.createdAt, props.PostInfo.updatedAt)}

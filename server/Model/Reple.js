@@ -7,7 +7,7 @@ const repleSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    postID: {
+    postId: {
       type: mongoose.Schema.Types.ObjectId,
     },
   },

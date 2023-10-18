@@ -5,13 +5,16 @@ import { loginUser, clearUser } from './Reducer/userSlice.js';
 import firebase from './firebase.js';
 
 import Heading from './Component/Heading';
-import List from './Component/Post/List';
+// import List from './Component/Post/List';
+import MainPage from './Component/MainPage.js';
+
 import Upload from './Component/Post/Upload';
 import PostArea from './Component/Post/PostArea.js';
 import Edit from './Component/Post/Edit';
 
 import Login from './Component/User/Login';
 import Register from './Component/User/Register';
+import MyPage from './Component/User/MyPage.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -34,12 +37,13 @@ function App() {
     <>
       <Heading />
       <Routes>
-        <Route path="/" element={<List />} />
+        <Route path="/" element={<MainPage />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/post/:postNum" element={<PostArea />} />
         <Route path="/edit/:postNum" element={<Edit />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/MyPage" element={<MyPage />} />
       </Routes>
     </>
   );

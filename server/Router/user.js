@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const { User } = require('../Model/User.js');
 const { Counter } = require('../Model/Counter.js');
+// const setUpload = require('../util/upload.js');
 
 router.post('/register', (req, res) => {
   let temp = req.body;
@@ -29,6 +30,28 @@ router.post('/namecheck', (req, res) => {
         check = false;
       }
       res.status(200).json({ success: true, check });
+    })
+    .catch((err) => {
+      res.status(400).json({ success: false });
+    });
+});
+
+// router.post(
+//   '/image/upload',
+//   setUpload('react-community/user'),
+//   (req, res, next) => {
+//     res.status(200).json({ success: true, filePath: res.req.file.location });
+//   }
+// );
+
+router.post('/profile/update', (req, res) => {
+  let temp = {
+    photoURL: req.body.photoURL,
+  };
+  User.updateOne({ uid: req.body.uid }, { $set: temp })
+    .exec()
+    .then((doc) => {
+      res.status(200).json({ success: true });
     })
     .catch((err) => {
       res.status(400).json({ success: false });

@@ -5,7 +5,7 @@ const multer = require('multer');
 const { Post } = require('../Model/Post.js');
 const { Counter } = require('../Model/Counter.js');
 const { User } = require('../Model/User.js');
-const setUpload = require('../util/upload.js');
+// const setUpload = require('../util/upload.js');
 
 router.post('/submit', (req, res) => {
   let temp = {
@@ -38,8 +38,25 @@ router.post('/submit', (req, res) => {
 });
 
 router.post('/list', (req, res) => {
-  Post.find()
+  let sort = {};
+
+  if (req.body.sort === '최신순') {
+    sort.createdAt = -1;
+  } else {
+    // 인기순
+    sort.repleNum = -1;
+  }
+
+  Post.find({
+    $or: [
+      { title: { $regex: req.body.searchTerm } },
+      { content: { $regex: req.body.searchTerm } },
+    ],
+  })
     .populate('author')
+    .sort(sort)
+    .skip(req.body.skip) // 0, 5
+    .limit(5) // 한번에 찾을 doc 숫자
     .exec()
     .then((doc) => {
       res.status(200).json({ success: true, postList: doc });

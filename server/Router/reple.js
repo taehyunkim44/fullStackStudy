@@ -33,6 +33,7 @@ router.post('/submit', (req, res) => {
     });
 });
 
+// postId 부분 => 로그인 여부 검증 부분
 router.post('/getReple', (req, res) => {
   Reple.find({ postId: req.body.postId })
     .populate('author')

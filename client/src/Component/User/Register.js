@@ -34,6 +34,7 @@ function Register() {
 
     await createdUser.user.updateProfile({
       displayName: Name,
+      photoURL: '',
     });
 
     let body = {
